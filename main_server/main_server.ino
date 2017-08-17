@@ -20,7 +20,8 @@ int gpio2_pin = 2;
 void setup(void){
   //webPage += "<h1>ESP8266 Web Server</h1><p>Socket #1 <a href=\"socket1On\"><button>ON</button></a>&nbsp;<a href=\"socket1Off\"><button>OFF</button></a></p>";
   //webPage += "<p>Socket #2 <a href=\"socket2On\"><button>ON</button></a>&nbsp;<a href=\"socket2Off\"><button>OFF</button></a></p>";
-
+  coffee1 += "<html><head><link rel=\"stylesheet\" href=\"https://unpkg.com/purecss@1.0.0/build/pure-min.css\" integrity=\"sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w\" crossorigin=\"anonymous\"></head><link rel=\"icon\" type=\"image/png\" href=\"http://images.clipartpanda.com/coffee-clip-art-acq4B9zcM.png\" /><title> Arduino Activator</title><h1> Click Below to make Coffee!</h1> <a class=\"pure-button pure-button-primary\" href=\"/socket1On\">Make Coffee</a></html>";
+  coffee2 += "<html><title> COFFEE!</title><h1> Coffee started!</h1></html>";
   // preparing GPIOs
   pinMode(gpio0_pin, OUTPUT);
   digitalWrite(gpio0_pin, LOW);
@@ -38,9 +39,9 @@ void setup(void){
     Serial.print(".");
   }
   Serial.println("");
-  Serial.print("Connected to ");
+  Serial.println("Connected to ");
   Serial.println(ssid);
-  Serial.print("IP address: ");
+  Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
   if (mdns.begin("esp8266", WiFi.localIP())) {
@@ -48,12 +49,14 @@ void setup(void){
   }
 
   server.on("/", [](){
-    server.send(200, "text/html", webPage);
+    server.send(200, "text/html", coffee1);
   });
   server.on("/socket1On", [](){
-    server.send(200, "text/html", webPage);
-    digitalWrite(gpio0_pin, HIGH);
+    server.send(200, "text/html", coffee2);
+    digitalWrite(gpio2_pin, HIGH);
+    Serial.println("Coffee Started");
     delay(1000);
+    digitalWrite(gpio2_pin, LOW);
   });
   /*
   server.on("/socket1Off", [](){
