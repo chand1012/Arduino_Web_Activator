@@ -14,7 +14,7 @@ ESP8266WebServer server(80);
 //String webPage = "";
 String coffee1 = "";
 String coffee2 = "";
-int gpio0_pin = 13;
+int gpio0_pin = 13; // For some reason on my ESP8266 Uno board the 13th pin is actually the 11th on the board
 //int gpio2_pin = 2;
 
 void setup(void){
